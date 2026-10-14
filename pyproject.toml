@@ -17,6 +17,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+single-gpu = [
+    "peft>=0.18.0",
+    "bitsandbytes>=0.48.0",
+    "matplotlib>=3.9.0",
+]
 gpu = [
     "alpaca-eval>=0.6.6",
     # No official flash-attn 2.8.3 wheel exists for Torch 2.10; use the
@@ -28,7 +33,11 @@ gpu = [
 ]
 plots = [
     "wandb>=0.26.0",
+    "matplotlib>=3.9.0",
 ]
+
+[project.scripts]
+cs336-a5 = "cs336_alignment.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["cs336_alignment*"]

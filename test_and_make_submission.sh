@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-uv run pytest -v ./tests/test_grpo.py --junitxml=test_results.xml || true
+uv run pytest -v ./tests/test_grpo.py ./tests/test_data.py ./tests/test_dpo.py ./tests/test_metrics.py ./tests/test_invariants.py ./tests/test_training_smoke.py --junitxml=test_results.xml
 echo "Done running tests"
 
 # Set the name of the output zip file
@@ -25,6 +25,9 @@ zip -r "$output_file" . \
     -x '*.err' \
     -x '.git*' \
     -x '.venv/*' \
+    -x 'runs/*' \
+    -x 'output/*' \
+    -x '.cache/*' \
     -x '*.bin' \
     -x '*.pt' \
     -x '*.pth' \

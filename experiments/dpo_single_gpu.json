@@ -1,0 +1,16 @@
+{
+  "model": "meta-llama/Meta-Llama-3.1-8B",
+  "adapter": "runs/sft/last",
+  "train_data": "data/hh",
+  "qlora": true,
+  "per_source": 512,
+  "n_val": 200,
+  "max_length": 512,
+  "epochs": 1,
+  "train_batch_size": 16,
+  "microbatch_size": 1,
+  "learning_rate": 0.00001,
+  "weight_decay": 0.0,
+  "beta": 0.1,
+  "output": "runs/dpo"
+}

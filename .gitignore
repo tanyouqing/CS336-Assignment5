@@ -1,5 +1,8 @@
 *.bin
 models/
+runs/
+output/
+*.tmp
 
 nav
 tags

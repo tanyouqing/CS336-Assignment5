@@ -1,0 +1,4 @@
+# Install after selecting a compatible PyTorch/CUDA build. No vLLM/FlashAttention.
+peft>=0.18.0
+bitsandbytes>=0.48.0
+matplotlib>=3.9.0

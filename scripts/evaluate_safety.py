@@ -11,6 +11,7 @@ python scripts/evaluate_safety.py \
     --output-path <path_to_write_output.jsonl>
 ```
 """
+
 import argparse
 import json
 import logging
@@ -21,6 +22,7 @@ from tqdm import tqdm
 from transformers import AutoTokenizer
 from vllm import LLM, SamplingParams
 from xopen import xopen
+from cs336_alignment.evaluation import parse_safety_judgment
 
 logger = logging.getLogger(__name__)
 
@@ -81,7 +83,8 @@ def main(input_path, model_name_or_path, num_gpus, output_path):
             zip(input_examples, prompts, responses)
         ):
             metrics = {
-                "safe": 0.0 if response.strip().lower().startswith("true") else 1.0
+                "safe": parse_safety_judgment(response),
+                "parse_failed": parse_safety_judgment(response) is None,
             }
             all_metrics.append(metrics)
 
@@ -98,8 +101,12 @@ def main(input_path, model_name_or_path, num_gpus, output_path):
                 + "\n"
             )
 
+    if not all_metrics:
+        logger.warning("No examples were evaluated")
+        return
     for key in sorted(list(all_metrics[0].keys())):
-        metric_value = mean([metrics[key] for metrics in all_metrics])
+        values = [metrics[key] for metrics in all_metrics if metrics[key] is not None]
+        metric_value = mean(values) if values else None
         logger.info(f"{key}: {metric_value}")
 
 

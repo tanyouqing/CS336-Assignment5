@@ -1,0 +1,17 @@
+{
+  "model": "allenai/OLMo-2-0425-1B",
+  "backend": "hf",
+  "variant": "grpo",
+  "importance": "none",
+  "n_train": 1024,
+  "n_val": 256,
+  "rollout_batch_size": 64,
+  "train_batch_size": 64,
+  "group_size": 4,
+  "microbatch_size": 1,
+  "steps": 50,
+  "max_tokens": 512,
+  "learning_rate": 0.00001,
+  "eval_every": 10,
+  "output": "runs/grpo-single"
+}
